@@ -5,8 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
@@ -35,35 +33,35 @@ fun MainWrapper() {
     //Box - z axis
     // Row - x axis
     // Column - y axis
-    Row() {
+    Column() {
         Surface(
             modifier = Modifier
-                .fillMaxHeight()
-                .weight(10f),
+                .fillMaxWidth()
+                .weight(1f),
             color = t_red
         ) {}
         Surface(
             modifier = Modifier
-                .fillMaxHeight()
-                .weight(10f),
+                .fillMaxWidth()
+                .weight(1f),
             color = white
         ) {}
         Surface(
             modifier = Modifier
-                .fillMaxHeight()
-                .weight(20f),
+                .fillMaxWidth()
+                .weight(2f),
             color = t_blue
         ) {}
         Surface(
             modifier = Modifier
-                .fillMaxHeight()
-                .weight(10f),
+                .fillMaxWidth()
+                .weight(1f),
             color = white
         ) {}
         Surface(
             modifier = Modifier
-                .fillMaxHeight()
-                .weight(10f),
+                .fillMaxWidth()
+                .weight(1f),
             color = t_red
         ) {}
 
