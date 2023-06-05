@@ -11,6 +11,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import edu.uchicago.gerber.bar_flags.ui.theme.t_blue
 import edu.uchicago.gerber.bar_flags.ui.theme.t_red
@@ -26,50 +27,30 @@ class MainActivity : ComponentActivity() {
         
     }
 }
+@Composable
+fun Flag(colors: Array<Color>){
+    Column() {
+        for (color in colors) {
+            Surface(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+                color = color
+            ) {}
+        }
+
+    }
+}
 
 @Composable
 fun MainWrapper() {
 
-    //Box - z axis
-    // Row - x axis
-    // Column - y axis
-    Column() {
-        Surface(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f),
-            color = t_red
-        ) {}
-        Surface(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f),
-            color = white
-        ) {}
-        Surface(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(2f),
-            color = t_blue
-        ) {}
-        Surface(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f),
-            color = white
-        ) {}
-        Surface(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f),
-            color = t_red
-        ) {}
-
-    }
-
-
-
+    Flag(colors = arrayOf(t_red, white, t_blue, t_blue, white, t_red))
 }
+
+
+
+
 
 @Preview(showBackground = true)
 @Composable
