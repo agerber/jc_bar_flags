@@ -10,10 +10,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -47,7 +49,7 @@ fun Flag(colors: Array<Color>){
 }
 
 @Composable
-fun CountryButtons(names: Set<String>, viewModel: MainViewModel){
+fun CountryButtons(names: Set<String>, viewModel: MainViewModel, selected: String){
     Column() {
         for (name in names) {
                 Spacer(modifier = Modifier.weight(1f))
@@ -55,7 +57,10 @@ fun CountryButtons(names: Set<String>, viewModel: MainViewModel){
                     onClick = { viewModel.countryClick(name) },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .weight(5f)
+                        .weight(5f),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = if (selected == name) Color.Black else Purple40 )
+
                 ) {
                     Text(text = "${name[0].uppercaseChar()}${name.substring(1)}")
                 }
@@ -101,7 +106,7 @@ fun MainWrapper() {
             color = Color.DarkGray
 
         ) {
-            CountryButtons(names = countryMap.keys, viewModel = viewModel)
+            CountryButtons(names = countryMap.keys, viewModel = viewModel, mutableState.value)
         }
     }
 
