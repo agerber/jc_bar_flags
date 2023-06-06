@@ -5,7 +5,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -13,9 +16,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import edu.uchicago.gerber.bar_flags.ui.theme.t_blue
-import edu.uchicago.gerber.bar_flags.ui.theme.t_red
-import edu.uchicago.gerber.bar_flags.ui.theme.white
+import androidx.compose.ui.unit.dp
+import edu.uchicago.gerber.bar_flags.ui.theme.*
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,9 +46,61 @@ fun Flag(colors: Array<Color>){
 }
 
 @Composable
+fun CountryButtons(names: Set<String>){
+    Column() {
+        for (name in names) {
+                Spacer(modifier = Modifier.height(10.dp))
+                Button(
+                    onClick = { /*TODO*/ },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                ) {
+                    Text(text = "${name[0].uppercaseChar()}${name.substring(1)}")
+                }
+            }
+        }
+
+}
+
+@Composable
 fun MainWrapper() {
 
-    Flag(colors = arrayOf(t_red, white, t_blue, t_blue, white, t_red))
+
+    val countryMap: Map<String, Array<Color>> =
+        linkedMapOf(
+            "thailand" to arrayOf(t_red, white, t_blue, t_blue, white, t_red),
+            "estonia" to arrayOf(e_blue, black, white),
+            "indonesia" to arrayOf(i_red, white),
+            "netherlands" to arrayOf(n_red, white, n_blue),
+            "ukraine" to arrayOf(u_yellow, u_blue)
+        )
+
+
+
+
+    Column() {
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(70f)
+
+        ) {
+            Flag(colors = arrayOf(t_red, white, t_blue, t_blue, white, t_red))
+        }
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(30f),
+            color = Color.DarkGray
+
+        ) {
+            CountryButtons(names = countryMap.keys)
+        }
+    }
+
+
+
 }
 
 
