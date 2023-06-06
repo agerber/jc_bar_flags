@@ -13,6 +13,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,19 +47,20 @@ fun Flag(colors: Array<Color>){
 }
 
 @Composable
-fun CountryButtons(names: Set<String>){
+fun CountryButtons(names: Set<String>, viewModel: MainViewModel){
     Column() {
         for (name in names) {
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.weight(1f))
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = { viewModel.countryClick(name) },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .weight(1f)
+                        .weight(5f)
                 ) {
                     Text(text = "${name[0].uppercaseChar()}${name.substring(1)}")
                 }
             }
+        Spacer(modifier = Modifier.weight(1f))
         }
 
 }
@@ -76,6 +78,10 @@ fun MainWrapper() {
             "ukraine" to arrayOf(u_yellow, u_blue)
         )
 
+    val viewModel = MainViewModel()
+//1 add this dependency to your project implementation "androidx.compose.runtime:runtime-livedata:1.4.3"
+    val mutableState = viewModel.mutableLiveData.observeAsState("ukraine")
+
 
 
 
@@ -86,7 +92,7 @@ fun MainWrapper() {
                 .weight(70f)
 
         ) {
-            Flag(colors = arrayOf(t_red, white, t_blue, t_blue, white, t_red))
+            Flag(colors = countryMap[mutableState.value]!!)
         }
         Surface(
             modifier = Modifier
@@ -95,7 +101,7 @@ fun MainWrapper() {
             color = Color.DarkGray
 
         ) {
-            CountryButtons(names = countryMap.keys)
+            CountryButtons(names = countryMap.keys, viewModel = viewModel)
         }
     }
 
