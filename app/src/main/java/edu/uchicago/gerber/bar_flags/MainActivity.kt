@@ -85,7 +85,7 @@ fun MainWrapper(viewModel: MainViewModel) {
             "ukraine" to arrayOf(u_yellow, u_blue)
         )
 
-  // val viewModel = MainViewModel()
+
 //1 add this dependency to your project implementation "androidx.compose.runtime:runtime-livedata:1.4.3"
     val mutableState = viewModel.mutableLiveData.observeAsState("ukraine")
 
@@ -124,6 +124,8 @@ fun MainWrapper(viewModel: MainViewModel) {
 @Composable
 fun AppPreview() {
 
+    //to satisfy the viewmodel in the preview just instantiate a new one.
+    //use the emulator or phone to test state, the preview is not reliable
     MainWrapper(viewModel = MainViewModel())
 
 }
