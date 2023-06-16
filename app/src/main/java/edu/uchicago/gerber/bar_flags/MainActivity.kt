@@ -3,6 +3,7 @@ package edu.uchicago.gerber.bar_flags
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -24,12 +25,13 @@ import edu.uchicago.gerber.bar_flags.ui.theme.*
 
 
 class MainActivity : ComponentActivity() {
+
+    val viewModel: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MainWrapper()
-                
-            }
+            MainWrapper(viewModel = viewModel)
+        }
         
     }
 }
@@ -71,7 +73,7 @@ fun CountryButtons(names: Set<String>, viewModel: MainViewModel, selected: Strin
 }
 
 @Composable
-fun MainWrapper() {
+fun MainWrapper(viewModel: MainViewModel) {
 
 
     val countryMap: Map<String, Array<Color>> =
@@ -83,7 +85,7 @@ fun MainWrapper() {
             "ukraine" to arrayOf(u_yellow, u_blue)
         )
 
-    val viewModel = MainViewModel()
+  // val viewModel = MainViewModel()
 //1 add this dependency to your project implementation "androidx.compose.runtime:runtime-livedata:1.4.3"
     val mutableState = viewModel.mutableLiveData.observeAsState("ukraine")
 
@@ -122,6 +124,6 @@ fun MainWrapper() {
 @Composable
 fun AppPreview() {
 
-    MainWrapper()
+    MainWrapper(viewModel = MainViewModel())
 
 }
