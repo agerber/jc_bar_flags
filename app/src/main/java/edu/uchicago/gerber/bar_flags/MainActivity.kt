@@ -51,7 +51,8 @@ fun Flag(colors: Array<Color>){
 }
 
 @Composable
-fun CountryButtons(names: Set<String>, viewModel: MainViewModel, selected: String){
+fun CountryButtons(names: Set<String>,
+                   viewModel: MainViewModel){
     Column() {
         for (name in names) {
                 Spacer(modifier = Modifier.weight(1f))
@@ -61,7 +62,7 @@ fun CountryButtons(names: Set<String>, viewModel: MainViewModel, selected: Strin
                         .fillMaxWidth()
                         .weight(5f),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = if (selected == name) Color.Black else Purple40 )
+                        containerColor = if (viewModel.country.value == name) Color.Black else Purple40 )
 
                 ) {
                     Text(text = "${name[0].uppercaseChar()}${name.substring(1)}")
@@ -86,10 +87,6 @@ fun MainWrapper(viewModel: MainViewModel) {
         )
 
 
-//1 add this dependency to your project implementation "androidx.compose.runtime:runtime-livedata:1.4.3"
-    val mutableState = viewModel.mutableLiveData.observeAsState("ukraine")
-
-
 
 
     Column() {
@@ -99,7 +96,7 @@ fun MainWrapper(viewModel: MainViewModel) {
                 .weight(70f)
 
         ) {
-            Flag(colors = countryMap[mutableState.value]!!)
+            Flag(colors = countryMap[viewModel.country.value]!!)
         }
         Surface(
             modifier = Modifier
@@ -108,7 +105,7 @@ fun MainWrapper(viewModel: MainViewModel) {
             color = Color.DarkGray
 
         ) {
-            CountryButtons(names = countryMap.keys, viewModel = viewModel, mutableState.value)
+            CountryButtons(names = countryMap.keys, viewModel = viewModel)
         }
     }
 

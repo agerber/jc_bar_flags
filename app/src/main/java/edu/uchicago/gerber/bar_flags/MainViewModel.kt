@@ -1,16 +1,18 @@
 package edu.uchicago.gerber.bar_flags
 
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class MainViewModel: ViewModel() {
 
-    //1: mutableLiveData which can be observed throughout the app
-    val mutableLiveData = MutableLiveData<String>()
+    //use similar structure for viewModel prop members as capitals_quiz app
+    private val _country = mutableStateOf("ukraine")
+    val country: State<String> = _country
 
-    //2 one or more functions that mutate the liveData
     fun countryClick(country: String){
-        mutableLiveData.value = country
+        _country.value = country
     }
 
 }
