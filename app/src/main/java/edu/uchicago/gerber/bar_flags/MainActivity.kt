@@ -3,6 +3,7 @@ package edu.uchicago.gerber.bar_flags
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -21,10 +22,13 @@ import edu.uchicago.gerber.bar_flags.ui.theme.*
 
 
 class MainActivity : ComponentActivity() {
+
+    val viewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MainWrapper()
+            MainWrapper(viewModel = viewModel)
                 
             }
         
@@ -46,12 +50,14 @@ fun Flag(colors: Array<Color>){
 }
 
 @Composable
-fun CountryButtons(names: Set<String>){
+fun CountryButtons(names: Set<String>, viewModel: MainViewModel){
     Column() {
         for (name in names) {
                 Spacer(modifier = Modifier.height(10.dp))
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = {
+                        viewModel.countryClick(name)
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f)
@@ -64,7 +70,7 @@ fun CountryButtons(names: Set<String>){
 }
 
 @Composable
-fun MainWrapper() {
+fun MainWrapper(viewModel: MainViewModel) {
 
 
     val countryMap: Map<String, Array<Color>> =
@@ -86,7 +92,7 @@ fun MainWrapper() {
                 .weight(70f)
 
         ) {
-            Flag(colors = arrayOf(t_red, white, t_blue, t_blue, white, t_red))
+            Flag(colors = countryMap[viewModel.country.value]!!)
         }
         Surface(
             modifier = Modifier
@@ -95,7 +101,7 @@ fun MainWrapper() {
             color = Color.DarkGray
 
         ) {
-            CountryButtons(names = countryMap.keys)
+            CountryButtons(names = countryMap.keys, viewModel = viewModel)
         }
     }
 
@@ -111,6 +117,6 @@ fun MainWrapper() {
 @Composable
 fun AppPreview() {
 
-    MainWrapper()
+    MainWrapper(viewModel = MainViewModel())
 
 }
