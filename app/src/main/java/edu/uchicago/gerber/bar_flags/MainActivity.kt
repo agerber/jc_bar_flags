@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -58,6 +59,8 @@ fun CountryButtons(names: Set<String>, viewModel: MainViewModel){
                     onClick = {
                         viewModel.countryClick(name)
                     },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = if (name == viewModel.country.value) Color.Black else Purple40 ),
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f)
