@@ -78,18 +78,6 @@ fun CountryButtons(names: Set<String>, viewModel: MainViewModel){
 fun MainWrapper(viewModel: MainViewModel) {
 
 
-    val countryMap: Map<String, Array<Color>> =
-        linkedMapOf(
-            "thailand" to arrayOf(t_red, white, t_blue, t_blue, white, t_red),
-            "estonia" to arrayOf(e_blue, black, white),
-            "indonesia" to arrayOf(i_red, white),
-            "netherlands" to arrayOf(n_red, white, n_blue),
-            "ukraine" to arrayOf(u_yellow, u_blue)
-        )
-
-
-
-
     Column() {
         Surface(
             modifier = Modifier
@@ -97,7 +85,7 @@ fun MainWrapper(viewModel: MainViewModel) {
                 .weight(70f)
 
         ) {
-            Flag(colors = countryMap[viewModel.country.value]!!)
+            Flag(colors = Constants.countryMap[viewModel.country.value]!!)
         }
         Surface(
             modifier = Modifier
@@ -106,7 +94,7 @@ fun MainWrapper(viewModel: MainViewModel) {
             color = Color.DarkGray
 
         ) {
-            CountryButtons(names = countryMap.keys, viewModel = viewModel)
+            CountryButtons(names = Constants.countryMap.keys, viewModel = viewModel)
         }
     }
 
